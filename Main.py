@@ -9,6 +9,8 @@ main()
 
 # added some code
 
+def guiformfunct(username):
+    return 'password'
 
 d6 = dr.die(6)
 d12 = dr.die(12)
