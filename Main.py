@@ -9,9 +9,8 @@ main()
  # look changes
 
  # hello code here
-def myfunc(){
+def myfunc():
     return 12
- }
 
 d6 = dr.die(6)
 d12 = dr.die(12)
