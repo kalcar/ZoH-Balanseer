@@ -6,16 +6,9 @@ def main():
 
 
 main()
- # look changes
 
-def myfunc2(var):
-    return 20
-# create a conflict 
+# added some code
 
-
- # hello code here
-def myfunc():
-    return 12
 
 d6 = dr.die(6)
 d12 = dr.die(12)
