@@ -13,6 +13,10 @@ def myfunc2(var):
 # create a conflict 
 
 
+ # hello code here
+def myfunc():
+    return 12
+
 d6 = dr.die(6)
 d12 = dr.die(12)
 
