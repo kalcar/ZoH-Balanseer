@@ -8,6 +8,11 @@ def main():
 main()
  # look changes
 
+def myfunc2(var):
+    return 20
+# create a conflict 
+
+
  # hello code here
 def myfunc():
     return 12
