@@ -9,6 +9,8 @@ main()
 
 # added some code
 
+def guiloginfunc(myvar):
+    return 'username'
 def guiformfunct(username):
     return 'password'
 
