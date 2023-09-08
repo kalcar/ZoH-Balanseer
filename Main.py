@@ -8,6 +8,10 @@ def main():
 main()
  # look changes
 
+def myfunc2(var):
+    return 20
+
+
 d6 = dr.die(6)
 d12 = dr.die(12)
 
