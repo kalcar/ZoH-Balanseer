@@ -101,6 +101,11 @@ class dicetower():
         print('+2 std. dev. :', self.stack.average_roll + self.stack.stddev*2.0 )
         print('max:', self.stack.max)
 
+    def get_simple_distribution(self): # Theres a better way to calc this. 
+        return [self.stack.min, (self.stack.average_roll - self.stack.stddev*2.0),(self.stack.average_roll - self.stack.stddev),\
+                self.stack.average_roll, (self.stack.average_roll + self.stack.stddev)\
+                    , (self.stack.average_roll + self.stack.stddev*2.0), self.stack.max ]
+
 
 
 
