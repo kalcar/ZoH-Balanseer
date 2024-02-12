@@ -1,7 +1,7 @@
 import random
 import math
 import itertools
-import random
+
 
 
 
@@ -105,6 +105,11 @@ class dicetower():
         return [self.stack.min, (self.stack.average_roll - self.stack.stddev*2.0),(self.stack.average_roll - self.stack.stddev),\
                 self.stack.average_roll, (self.stack.average_roll + self.stack.stddev)\
                     , (self.stack.average_roll + self.stack.stddev*2.0), self.stack.max ]
+    
+    def calc_prob_dist(self):
+        possible_rolls = itertools.cartesian(self.stack.get_face_array)
+        pass
+        
 
 
 
