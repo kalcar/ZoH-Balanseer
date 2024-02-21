@@ -1,18 +1,5 @@
 import DiceRoller as dr
-import itertools
 
-def main():
-    pass
-
-
-main()
-
-# added some code
-
-def guiloginfunc(myvar):
-    return 'username'
-def guiformfunct(username):
-    return 'password'
 
 d6 = dr.die(6)
 d12 = dr.die(12)

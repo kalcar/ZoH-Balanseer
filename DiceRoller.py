@@ -5,26 +5,32 @@ import itertools
 
 
 
-class dicetower():
+class Dicetower():
 
     def __init__(self, *dice):
-        self.stack = self.diestack(*dice)
+        self.diestack = self.Diestack(*dice)
 
-    class diestack():
+        self.aux_diestack = []
+
+        # Not calculated on initalization because its expensive to do so currently
+        self.prob_dist = None 
+
+    def add_stack(self, *dice):
+        self.aux_diestack.append(self.Diestack(*dice))
+
+
+    class Diestack():
 
         def __init__(self,*dice):
             self.dice = list(dice)
             self.face_array = []
-            for item in self.dice:
-                self.face_array.append(item.face_array)
             self.average_roll = 0.0
-            for item in self.dice:
-                self.average_roll += item.avg
             self.min = 0
-            for item in self.dice:
-                self.min += item.min
             self.max = 0
             for item in self.dice:
+                self.face_array.append(item.face_array)
+                self.average_roll += item.avg
+                self.min += item.min
                 self.max += item.max
 
             self.stddev = self.calc_stddev()
@@ -90,31 +96,54 @@ class dicetower():
         def get_dice(self):
             return self.dice
 
-
     
     def print_simple_distribution(self):
-        print('min:', self.stack.min)
-        print('-2 std. dev. :', self.stack.average_roll - self.stack.stddev*2.0 )
-        print('-1 std. dev. :', self.stack.average_roll - self.stack.stddev )
-        print('0 std. dev. :', self.stack.average_roll)
-        print('+1 std. dev. :', self.stack.average_roll + self.stack.stddev )
-        print('+2 std. dev. :', self.stack.average_roll + self.stack.stddev*2.0 )
-        print('max:', self.stack.max)
+        print('min:', self.diestack.min)
+        print('-2 std. dev. :', self.diestack.average_roll - self.diestack.stddev*2.0 )
+        print('-1 std. dev. :', self.diestack.average_roll - self.diestack.stddev )
+        print('0 std. dev. :', self.diestack.average_roll)
+        print('+1 std. dev. :', self.diestack.average_roll + self.diestack.stddev )
+        print('+2 std. dev. :', self.diestack.average_roll + self.diestack.stddev*2.0 )
+        print('max:', self.diestack.max)
 
     def get_simple_distribution(self): # Theres a better way to calc this. 
-        return [self.stack.min, (self.stack.average_roll - self.stack.stddev*2.0),(self.stack.average_roll - self.stack.stddev),\
-                self.stack.average_roll, (self.stack.average_roll + self.stack.stddev)\
-                    , (self.stack.average_roll + self.stack.stddev*2.0), self.stack.max ]
+        return [self.diestack.min, (self.diestack.average_roll - self.diestack.stddev*2.0),(self.diestack.average_roll - self.diestack.stddev),\
+                self.diestack.average_roll, (self.diestack.average_roll + self.diestack.stddev)\
+                    , (self.diestack.average_roll + self.diestack.stddev*2.0), self.diestack.max ]
     
     def calc_prob_dist(self):
-        possible_rolls = itertools.cartesian(self.stack.get_face_array)
-        pass
+        possible_rolls = itertools.product(*self.diestack.get_face_array())
+        possible_values = []
+        value_occurrences = {}
+        value_probability = {}
+
+        for possible_roll in possible_rolls:
+            possible_values.append(sum(possible_roll))
+
+        for value in possible_values:
+                value_occurrences[value] = value_occurrences.get(value, 0) + 1
+
+        total_occurrences = sum(value_occurrences.values())
+        for key, number in value_occurrences.items():
+            value_probability[key] = number / total_occurrences
+
+        # Store it so it doesn't have to be calculated every time
+        self.prob_dist = value_probability
+
+        return value_probability
+    
+    def get_prob_dist(self):
+        if self.prob_dist:
+            return self.prob_dist
+        else:
+            return "Probability distribution not calculated yet."
+
         
 
 
 
 
-class die():
+class Die():
     
     def __init__(self, sides):
         self.sides = sides
